@@ -21,6 +21,7 @@ setup(
     description='Base templates.',
     long_description=README,
     zip_safe=False,
+    include_package_data=True,
     keywords='django edc templates',
     classifiers=[
         'Environment :: Web Environment',
