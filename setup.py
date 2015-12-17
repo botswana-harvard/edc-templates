@@ -15,7 +15,6 @@ setup(
     author=u'Erik van Widenfelt',
     author_email='ew2789@gmail.com',
     packages=find_packages(),
-    include_package_data=True,
     url='http://github.com/botswana-harvard/edc-templates',
     license='GPL licence, see LICENCE',
     description='Base templates.',
