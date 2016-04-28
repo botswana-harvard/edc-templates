@@ -1,7 +1,13 @@
 # from Jaap Roes https://bitbucket.org/jaap3/django-friendly-tag-loader
 # /src/561aa25159dd/src/friendlytagloader/templatetags/friendly_loader.py
-
-from django.template.base import InvalidTemplateLibrary, Library, TOKEN_BLOCK, TemplateSyntaxError, get_library
+try:
+    # django_version >= 1.9
+    from django.template.base import TOKEN_BLOCK
+    from django.template import Library, TemplateSyntaxError
+    from django.template.library import InvalidTemplateLibrary
+except ImportError:
+    # django_version < 1.9
+    from django.template.base import InvalidTemplateLibrary, Library, TOKEN_BLOCK, TemplateSyntaxError
 from django.template.defaulttags import CommentNode, IfNode, LoadNode
 from django.template.smartif import Literal
 
@@ -35,7 +41,12 @@ def friendly_load(parser, token):
     bits = token.contents.split()
     for taglib in bits[1:]:
         try:
-            lib = get_library(taglib)
+            try:
+                from django.template.base import get_library
+                lib = get_library(taglib)
+            except ImportError:
+                from django.template.backends.django import get_installed_libraries
+                lib = get_installed_libraries()[taglib]
             parser.add_library(lib)
         except InvalidTemplateLibrary:
             pass
