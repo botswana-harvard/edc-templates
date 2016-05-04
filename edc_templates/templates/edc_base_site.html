@@ -11,6 +11,8 @@
 <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.11.1.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/lab_results.js"></script>
 {% endblock %}
+{% if not is_popup %}
+
 {% block title %}Edc {% project_number %} {{ title }} | {% project_title %}{% endblock %}
 
 {% block branding %}
@@ -24,6 +26,8 @@
     {% if title %} &rsaquo; {{ title }}{% endif %}
     </div>
 {% endblock %}
+
+{% endif %}
 
 {% block footer %}<div style="width:auto;float:left;margin:10px 10px 5px 10px;"><small><B>{% now 'Y' %} {% institution %}</B><BR>For Research Purposes Only. Unauthorized access is prohibited. Data collection schedule based on protocol "{% protocol_revision %}". Edc {% revision_tag %}{% if admin_exclude_code %} {{admin_exclude_code}}{% endif %}
 </small></div>{% endblock %}
